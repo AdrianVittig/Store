@@ -2,7 +2,9 @@ package org.informatics;
 
 import org.informatics.data.*;
 import org.informatics.exceptions.ExpiredGoods;
+import org.informatics.service.CashdeskService;
 import org.informatics.service.GoodsService;
+import org.informatics.service.impl.CashdeskServiceImpl;
 import org.informatics.service.impl.GoodsServiceImpl;
 import org.informatics.utils.GoodsType;
 
@@ -50,10 +52,20 @@ public class Main {
         System.out.println(goodsService.getSellingPrice(bread, store1));
         System.out.println(goodsService.getSellingPrice(shoes, store1));
 
+        Client client1 = new Client(BigDecimal.valueOf(45));
+        List<Goods> goodsToBuy = new ArrayList<>();
+        goodsToBuy.add(bread);
+        goodsToBuy.add(shoes);
+        client1.setGoodsToBuy(goodsToBuy);
+
         try {
             goodsService.expiredGoods(shoes);
         } catch (ExpiredGoods e) {
             throw new RuntimeException(e);
         }
+
+        CashdeskService cashdeskService = new CashdeskServiceImpl();
+        System.out.println(cashdeskService.getTotalAmount(store1, employee1, client1));
+        System.out.println(cashdeskService.canBuyGoods(client1));
     }
 }
