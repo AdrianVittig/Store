@@ -4,11 +4,11 @@ import org.informatics.data.Client;
 import org.informatics.data.Employee;
 import org.informatics.data.Goods;
 import org.informatics.data.Store;
+import org.informatics.exceptions.NotEnoughBudgetException;
 import org.informatics.service.CashdeskService;
 import org.informatics.service.GoodsService;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 public class CashdeskServiceImpl implements CashdeskService {
     GoodsService goodsService = new GoodsServiceImpl();
@@ -22,8 +22,12 @@ public class CashdeskServiceImpl implements CashdeskService {
     }
 
     @Override
-    public boolean canBuyGoods(Client client) {
-        return client.getBudget().compareTo(total) > 0;
+    public boolean canBuyGoods(Client client) throws NotEnoughBudgetException {
+        if(client.getBudget().compareTo(total) >= 0){
+            return true;
+        }
+        else{
+            throw new NotEnoughBudgetException("Not enough budget! You can not buy the goods.");
+        }
     }
-
 }
