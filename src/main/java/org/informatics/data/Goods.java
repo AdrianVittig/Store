@@ -3,6 +3,7 @@ package org.informatics.data;
 import org.informatics.utils.GoodsType;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Goods {
@@ -10,10 +11,10 @@ public class Goods {
     private String name;
     private BigDecimal manufacturerPrice;
     private GoodsType goodsType;
-    private Date expirationDate;
+    private LocalDate expirationDate;
     private static long nextId = 1000;
 
-    public Goods(String name, BigDecimal manufacturerPrice, GoodsType goodsType, Date expirationDate) {
+    public Goods(String name, BigDecimal manufacturerPrice, GoodsType goodsType, LocalDate expirationDate) {
         this.id = ++nextId;
         this.name = name;
         this.manufacturerPrice = manufacturerPrice;
@@ -53,11 +54,11 @@ public class Goods {
         this.goodsType = goodsType;
     }
 
-    public Date getExpirationDate() {
+    public LocalDate getExpirationDate() {
         return expirationDate;
     }
 
-    public void setExpirationDate(Date expirationDate) {
+    public void setExpirationDate(LocalDate expirationDate) {
         this.expirationDate = expirationDate;
     }
 
